@@ -1,0 +1,374 @@
+------------------------------ JAVA BASICS ------------------------------ 
+
+-If I want to use space in java args I have to use "";
+ex: javaC zoo.java
+java zoo "San Diego" zoo -> they're treated as String.
+
+-System.gc is not guaranteed to run and Finalize() might not get called and won't be called twice.
+
+-The java command can only execute compiled .class files.
+
+-the javaC compiles a .java file into a .class bytecode file.
+
+- any error inside a static block will be an ExceptionInitializerError;
+
+-if you want to write a value in binary it must be prefixed with 0b or 0B.
+
+- The bytecode can run on any OS and chip architecture of there is a jre for that OS and chip.
+
+-2ndArgument is not a valid identifier name.
+
+-Java supports multiple type inheritance(interface is a type and a class can have multiple interfaces)
+Java doesn't support multiple state inheritance(class is a type and you cannot extend more than one)
+
+- garbage collector is not guaranteed to run even though one object is elegible.
+
+-if the class declaration doesn't extend another class, then it implicity extends the.
+java.Lang.Object.class.
+
+- -, / and # are not allowed names in variable or method.
+
+-The javaC command compiles a .java fileint a .class file, a text file into a bytecode
+
+
+
+
+------------------------------ JAVA DATA TYPES ------------------------------
+
+-byte, short, char -> int -> long -> float -> double
+
+-double d = 1_00_0.0_0 //is valid but can't use comma.
+
+- 5 == 5.00 -> True because java automatically promotes to double.
+
+-Java doesn't convert in 2 Steps -> from int to Long
+
+-If the copy of the reference inside the method point to null, it doesn't change the original.
+
+-A char without initialize is a blank space.
+
+-Boolean.valueOf("true") to convert an String or primitive to the object of wrapper class(Case is ignored but spaces no)
+
+- Parse convert an String in a primitive value
+Integer.parseInt("123");
+
+- length to array
+  length() to String.
+  Size to List
+  
+-There is no Reverse() method in a String class.
+
+- b1 = il == i2
+== higher precedence.
+  
+- short s = 10;
+    char c = s; -> not all shorts are valid char values. error.
+    s =c; -> not all char are valid shorts.
+    
+-A char value can ALWAYS be assigned to an int variable
+
+-String mStr = "123";
+long m = new Long(mStr);  -> This constructor is valid and accept a string.
+
+String mStr = "123";
+long m = Long.valueOf(mStr).longValue(); -> Long.valueOf Return a Long object from the String and longValue
+ return a long primitive from the object 
+
+String s = this.toString() -> is valid
+
+
+------------------------------ OPERATORS AND DECISION CONSTRUCTS ------------------------------ 
+
+- switch permits - string, byte char, short and int.
+
+- int x = 3;
+int y = ++x * 5 / x-- + --x; ---> (4) * 5 / (4) + (2) -> 20 /4 + 2 -> 7 e x=2
+
+- short x=10; short y=3;
+short z = x*y; //needs casting -> short z = short(x*y)
+automatically promotes to int when doing a math expression;
+
+-If I use a compound operator, i don't need to cast:
+long x = 10; int y = 5;
+y += x;
+
+- == is only true for OBJECTS if they point to the same object
+
+- indexOf() returns -1 when no match is found.
+int indexOf(int ch, int fromIndex): Finds the first occurrence of the character or String starting from
+the specified index.
+
+-String x = "Hello"; String y " Hello  ".trim() -> compiled at runtime
+x == y -> false.
+
+-String x = new String("hello") //creates a new String object in the heap memory
+even if "hello" already exists in the string pool.
+ == compares references, not values
+String y = "hello"; // Refers to a String literal the string pool
+x == y -> false
+
+-String f = new String("oi");
+ String g = new String("oi");
+ f == g -> false because doesn't point to the same object
+ new always creates a new object even if the value "oi" is in the Stringpool already
+
+-if you compare a SB and String with == it will give an error;
+
+-Unlike String, the StringBuilder class does not override the .equals() method.
+It inherits the default implementation from the Object class, which also compares references.
+
+-If a String with value of "hello and another one with the same value but was constructed with operations == is going
+to give false.
+
+- if you just initialize the variables and don't give a value, you cannot give the value inside the if body if there
+isn't an else.
+
+- == has less precedence than >.
+true == 2>10 -> true == (2>10)
+
+- 1+5 < 3+7. Comparison operators have less precedence than math operators.
+2 +(2>=2) + 3 -> error
+
+ -Every case constant in a switch must be assignable to the type of switch expression;
+ byte by = 10;
+ switch(by) {
+ case 300; -> doesn't fit in a byte -> -128 to 127
+
+ -Object o = null -> if you print it will print null.
+ 
+-  % * / have the same precedence
+
+- + * / have high precedence than ternary, so 1 + 2 * 5 >= ? 4:2 you first calculate 1 +2 *5
+
+-Note that  boolean operators have more precedence than =. 
+(In fact, = has least precedence of all operators.)
+so, in (b2 != b1 = !b2)  first b2 != b1 is evaluated 
+
+ 
+
+------------------------------ ARRAYS ------------------------------ 
+
+- int a[], b;
+a-> array and b -> int;
+
+-ArrayList implements toString() it means I can print;
+
+-int[] a= {10, 11, 12};
+ int[] b= {0,1,2};
+ System.out.println(a[(a=b)[2]]); -> 12 because the a is evaluated first so the original value doesn't change.
+ 
+ -Array list can only store objects.
+ 
+-getArray()[index=2]++; in this situation first the indx=2 will be executed
+ 
+ 
+
+------------------------------ LOOP CONSTRUCTS ------------------------------ 
+
+- if the for break the I++ doesn't ATT.
+
+
+------------------------------ CONSTRUCTORS, METHODS AND ENCAPSULATION ------------------------------ 
+
+-Method Signature-> name and parameter.
+
+-At most 1 class has to be public and has to match the filename
+
+-overloaded methods can have any return but has to match name and parameters.
+
+-overridedn methods the return must be covariant for object and same to primitives, the access has
+to be less restrictive or equal.
+
+--Fields and instance Initializers are run in order in which they appear in the file and the constructor
+is the last to run.
+
+-A Static member cannot call an instance member
+
+
+-Correct order: 1.	Static dad.
+                2.	Static son.
+                3.	instance blocks and instance variables dad.
+                4.	dad constructor.
+                5.	instance blocks and instance variables son.
+                6.	son constructor.
+                
+- this() can only be called by constructors and in the first line.
+
+-you cannot hide or ride a final method from the parent class.
+
+-You can only have an Abstract method inside an Abstract class and Abstract methods cannot have a body or braces.
+
+-If a class implements 2 interfaces that have same signature it gives an error.
+There is an exception to this rule Though: if the subclass overrides the default method it will compile.
+
+-Private methods can only be hidden not overridden.
+
+-A constructor cannot be final, Abstract or static.
+
+-Static variables and Static methods can be inherited and called by the subclass.
+
+-Interface can extend other but cannot implement one.
+
+- Static methods from the interface are called directly and cannot be overridden and you cannot call it by a reference.
+
+-A final variable must be initialized directly or in the constructor.
+
+-default methods cannot be static and needs a body.
+
+-If a methods call another that throws an exception, you have to put throws in it too.
+
+-A static method can never be abstract and a static method in an interface needs a body.
+
+-Overloading: Same method name but different parameter lists 
+(number, types, or order of parameters) within the same class.
+Overriding: A method in a subclass has the same name, same parameters, 
+and same return type (or compatible return type) as a method in the superclass.
+
+-super() and this() cannot be called in the same constructor.
+
+
+------------------------------ INHERITANCE ------------------------------ 
+
+
+-If the reference type is a class, the object it refers to MUST be either that same type or a subclass of that type.
+
+-If the reference type is an INTERFACE, the object it refers to MUST be an object from a class which
+implements the interface.
+
+-Even when the code compiles without issue, an exception may be thrown at runtime if the object being cast
+is not actually an instance of that class.
+
+public class Rodent { }
+public class Capybara extends Rodent {
+public static void main(String[] args) {
+    Rodent rodent = new Rodent();
+    Capybara capybara = (Capybara)rodent; // Throws ClassCastException at runtime }
+
+you tried to do a cast in a rodent which is a Rodent to Capybara since Rodent is not a subclass of Capybara. It will
+compile but it will throw a classCast exception.
+This results in a ClassCastException, because at runtime the object is not of the type Capybara, but of type Rodent.
+A Rodent is not necessarily a Capybara (even though Capybara is a Rodent), and Java cannot safely cast the object.
+
+-.	Compilation without issues:
+ The compiler checks the syntax and ensures that the cast is possible based on the type hierarchy. For example,
+if you have a parent class (Animal) and a child class (Dog), the compiler allows you to cast an Animal reference
+to a Dog because Dog is a subclass of Animal.
+
+Animal animal = new Dog();  // This is valid.
+Dog dog = (Dog) animal;     // The compiler allows this cast.
+
+At runtime, Java performs a type check to verify that the object being cast is actually an instance of the
+target class. If the object is not an instance of that class, a ClassCastException is thrown.
+
+Animal animal = new Cat();  // Cat is also a subclass of Animal.
+Dog dog = (Dog) animal;     // Compiles fine but throws ClassCastException at runtime.
+
+At compile-time, the compiler sees that animal is an Animal and that Dog is a subclass of Animal.
+ So it permits the cast.
+At runtime, it checks whether animal is actually a Dog. Since it’s a Cat, the cast fails
+and a ClassCastException is thrown.
+
+- if an Abstract class implements an interface, it doesn't have to implement the methods and it can delegate to the
+child class.
+
+- I i = new A() -> can only call methods of A implemented from the interface.
+
+- You cannot instantiate an Abstract class. You have to implement the methods in a child class.
+A abstract method cannot be final. A final class cannot be extended.
+
+-If the dad class has a static method the child class cannot have a non-static method with the same name.
+
+-A class can override a default method of an interface.
+
+- Interface A{void methodA()}
+  Interface B{void methodB()}
+  Interface C extends A,B{void methodC()}
+
+  Any class that implements C needs to implement the methods A,B,C;
+  
+- all methods in an interface are PUBLIC and Abstract. but there is no problem in writing it.
+
+-A a = new A();
+        AA aa = new AA();
+        a = aa;
+        System.out.println("a = "+a.getClass());
+        System.out.println("aa = "+aa.getClass());
+-> getClass return the name of the class of the actual object, not the type of the reference
+  
+
+------------------------------ HANDLING EXCEPTIONS ------------------------------ 
+
+-If an exception is thrown in a catch block the other catches cannot capture it.
+
+-When an exception is handled, it goes to the final if exists, and continues.
+
+- pay attention if the main method call a method that throws an error, it has to 
+deal with it or throws.
+
+-When you use System.out.println(exception), a stack trace is not printed.
+ Just the name of the exception class and the message is printed.
+When you use exception.printStackTrace(), a complete chain of the names of the methods called, 
+along with the line numbers, is printed.
+
+-SecurityException extends RuntimeException: It is thrown by the security manager upon security violation.
+public class CloneNotSupportedException extends Exception so it doesn't extend RuntimeException
+
+------------------------------ INSTANCEOF OPERATORS ------------------------------ 
+
+-InstanceOf the left operand must be a reference and the right must be a class.
+
+
+------------------------------ JAVA API ------------------------------ 
+
+
+- Period.of(1,2,15) is used to represent a quantity of time in years, months and days.
+useful methods with periods are getYears(),getDays(),getMonths();
+today.plus(period)
+You also cannot chainMethod it because it is immutable.
+
+- StringBuilder(1,2,3,4,5,6,7,8,9,10) if I use the method setLength.to(5) it will be only the first 5.
+If i set length to 10 again it will add 5 blank spaces.
+
+-StringBuilder sb = new StringBuilder(100);
+initialize the capacity to 100 characters.
+THERE IS NO setCapacity method in stringBuilder.
+
+-Stringbuilder implements toString.
+
+
+------------------------------  LAMBDA ------------------------------ 
+
+-: () -> true;
+   a ->
+   (String a) ->
+   (a, b) ->
+   (String a, String b) ->
+valid lambdas start.
+
+-in lambda questions pay attention in the predicate type if matches with the variable of the lambda
+
+
+------------------------------ Questions watch out ------------------------------
+
+/In file A.java
+package a;
+public class A{
+   A(){ }
+   public void  print(){ System.out.println("A"); }
+}
+
+//In file B.java
+package b;
+import a.*;
+public class B extends A{
+   B(){ }
+   public void  print(){ System.out.println("B"); }
+   public static void main(String[] args){
+      new B();
+   }
+}
+ -> watch out for questions like this, they are in diferent packages and A constructor is default
+ so when the super implict in B constructor call A constructor it will give an error.
+
+att
+
