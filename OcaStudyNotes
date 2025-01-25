@@ -30,6 +30,11 @@ java.Lang.Object.class.
 
 -The javaC command compiles a .java fileint a .class file, a text file into a bytecode
 
+-Using a fully qualified class name always works irrespective of whether you import the package or not. 
+
+-When the program is called with no arguments, the args array will be of length zero.
+
+
 
 
 
@@ -75,6 +80,15 @@ long m = Long.valueOf(mStr).longValue(); -> Long.valueOf Return a Long object fr
  return a long primitive from the object 
 
 String s = this.toString() -> is valid
+
+-XXX amount = 1000.0; ---> xxx can never be float without f in the end
+
+-int a = b = c = 100;
+Chaining to use a value of a variable at the time of declaration
+ is not allowed. Had b and c been already declared, it would have been valid
+ -int a, b, c; a = b = c = 100; valid
+
+
 
 
 ------------------------------ OPERATORS AND DECISION CONSTRUCTS ------------------------------ 
@@ -144,6 +158,10 @@ true == 2>10 -> true == (2>10)
 (In fact, = has least precedence of all operators.)
 so, in (b2 != b1 = !b2)  first b2 != b1 is evaluated 
 
+-new Boolean("TrUe") == new Boolean(true)
+Even though both the sides have a Boolean wrapper containing true, 
+the expression will yield false because they point to two different Boolean wrapper objects.
+
  
 
 ------------------------------ ARRAYS ------------------------------ 
@@ -160,12 +178,24 @@ a-> array and b -> int;
  -Array list can only store objects.
  
 -getArray()[index=2]++; in this situation first the indx=2 will be executed
+
+-ArrayList extends java.util.AbstractList.
+It allows you to access its elements in random order.
+You can sort its elements using Collections.sort() method.
+ArrayList implements RandomAccess.
+
+
  
  
 
 ------------------------------ LOOP CONSTRUCTS ------------------------------ 
 
 - if the for break the I++ doesn't ATT.
+
+- for(o : c){ }
+Cannot use an existing/predefined variable in the variable declaration part
+for(final Object o2 :c){ }
+final is the only modifier (excluding annotations) that is allowed here
 
 
 ------------------------------ CONSTRUCTORS, METHODS AND ENCAPSULATION ------------------------------ 
@@ -294,6 +324,11 @@ A abstract method cannot be final. A final class cannot be extended.
         System.out.println("a = "+a.getClass());
         System.out.println("aa = "+aa.getClass());
 -> getClass return the name of the class of the actual object, not the type of the reference
+
+-pay attention on the inherited methods, sometimes the test try to trick you, the subclass has an overloaded method
+but it also inherit the one it didn't overriden.
+
+-super works only for classes, not interfaces
   
 
 ------------------------------ HANDLING EXCEPTIONS ------------------------------ 
@@ -312,6 +347,26 @@ along with the line numbers, is printed.
 
 -SecurityException extends RuntimeException: It is thrown by the security manager upon security violation.
 public class CloneNotSupportedException extends Exception so it doesn't extend RuntimeException
+
+-watch out for unreachable return after finally.
+
+-watch out for infinite loops that won't be caught by the catch case, and will throw an error at runtime  out of memory
+
+-It improves code because error handling code is clearly separated from the main program logic.
+
+-It allows creation of new exceptions that are custom to a particular application domain.
+
+-Checked Exceptions: Must be declared in the throws clause of a method or constructor and handled using
+ try-catch. Examples: IOException, SQLException. These are checked at compile-time.
+
+-Unchecked Exceptions: Do not need to be declared or explicitly handled. Examples: NullPointerException, 
+ArithmeticException. These occur due to programming errors and are checked at runtime.
+
+- about checked exception: 
+exceptional conditions external to an application that a well written application should anticipate and
+ from which it can recover.
+
+
 
 ------------------------------ INSTANCEOF OPERATORS ------------------------------ 
 
@@ -334,6 +389,16 @@ initialize the capacity to 100 characters.
 THERE IS NO setCapacity method in stringBuilder.
 
 -Stringbuilder implements toString.
+
+-append doenst exint in STRING so watch out for tricky questions
+
+-The charAt( ) method can take a char value as an argument.
+Yes, it can because it takes an int and char will be implicitly promoted to int.
+
+- in the substring method i can make the last index outOfBounds so i can include the last.
+
+
+
 
 
 ------------------------------  LAMBDA ------------------------------ 
@@ -370,5 +435,43 @@ public class B extends A{
  -> watch out for questions like this, they are in diferent packages and A constructor is default
  so when the super implict in B constructor call A constructor it will give an error.
 
-att
 
+-----------------------------------------------
+Consider the following code:
+
+class A{
+   A() {  print();   }
+   void print() { System.out.print("A "); }
+}
+class B extends A{
+   int i =   4;
+   public static void main(String[] args){
+      A a = new B();
+      a.print();
+   }
+   void print() { System.out.print(i+" "); }
+}
+What will be the output when class B is run ?
+
+
+It will print 0 4
+
+
+Note that method print() is overridden in class B. Due to polymorphism, the method to be executed is selected depending on the class of the actual object.
+Here, when an object of class B is created, first B's default constructor (which is not visible in the code but is
+automatically provided by the compiler because B does not define any constructor explicitly) is called. The first
+line of this constructor is a call to super(), which invokes A's constructor. A's constructor in turn calls print().
+Now, print is a non-private instance method and is therefore polymorphic, which means, the selection of the method 
+to be executed depends on the class of actual object on which it is invoked. Here, since the class of actual object 
+is B, B's print is selected instead of A's print. At this point of time, variable i has not been initialized (because 
+we are still in the middle of initializing A), so its default value i.e. 0 is printed.
+
+
+
+---------------------------------------------------------------------
+public class TestClass{
+   public static void main(String args[]){
+      Exception e = null;
+      throw e;
+      
+      fail to compile because there is no throws or try blocks
