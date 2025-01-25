@@ -162,6 +162,8 @@ so, in (b2 != b1 = !b2)  first b2 != b1 is evaluated
 Even though both the sides have a Boolean wrapper containing true, 
 the expression will yield false because they point to two different Boolean wrapper objects.
 
+-The second and third operands of the ?: operator cannot be invocations of void methods. 
+This makes sense because the ?: operator must produce a value.
  
 
 ------------------------------ ARRAYS ------------------------------ 
@@ -330,6 +332,10 @@ but it also inherit the one it didn't overriden.
 
 -super works only for classes, not interfaces
   
+  
+-Multiple inheritance of state includes ability to inherit instance fields from multiple classes.
+Multiple inheritance of type includes ability to implement multiple interfaces and/or ability to extend from multiple classes.
+
 
 ------------------------------ HANDLING EXCEPTIONS ------------------------------ 
 
@@ -396,6 +402,8 @@ THERE IS NO setCapacity method in stringBuilder.
 Yes, it can because it takes an int and char will be implicitly promoted to int.
 
 - in the substring method i can make the last index outOfBounds so i can include the last.
+
+-there is no trim in stringbuilder
 
 
 
