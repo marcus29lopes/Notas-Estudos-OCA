@@ -419,7 +419,7 @@ Yes, it can because it takes an int and char will be implicitly promoted to int.
 
 - in the substring method i can make the last index outOfBounds so i can include the last.
 
--there is no trim in stringbuilder
+-there is no trim in stringbuilder.
 
 -StringBuilder's toString() will always return a new String object. So == will always return false in this case.
 
