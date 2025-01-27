@@ -87,6 +87,12 @@ String s = this.toString() -> is valid
 Chaining to use a value of a variable at the time of declaration
  is not allowed. Had b and c been already declared, it would have been valid
  -int a, b, c; a = b = c = 100; valid
+ 
+ -1. When you do x++;
+This is same as doing x = x + 1;
+So the original object that was passed was not changed but a new object
+] containing 6 is created and assigned back to x. 'x' is a reference. 
+x changes but not the object that was originally pointed to by it.
 
 
 
@@ -164,6 +170,16 @@ the expression will yield false because they point to two different Boolean wrap
 
 -The second and third operands of the ?: operator cannot be invocations of void methods. 
 This makes sense because the ?: operator must produce a value.
+
+-for(;;){
+    Math.random()<.05? break : continue;
+doesn't work. has to return something
+
+-for(;;Math.random()){
+    System.out.println("true");
+it is valid
+
+-cannot redeclare a variable with same name in the for statement
  
 
 ------------------------------ ARRAYS ------------------------------ 
@@ -405,6 +421,7 @@ Yes, it can because it takes an int and char will be implicitly promoted to int.
 
 -there is no trim in stringbuilder
 
+-StringBuilder's toString() will always return a new String object. So == will always return false in this case.
 
 
 
@@ -483,3 +500,53 @@ public class TestClass{
       throw e;
       
       fail to compile because there is no throws or try blocks
+      
+      
+      
+----------------------------------------------------------------------
+interface Bar{
+    void bar();
+}
+
+abstract class FooBase{
+   
+  public static void bar(){
+     System.out.println("In static bar");  
+  }    
+}
+
+public class Foo extends FooBase implements Bar {
+
+
+The problem with the code is that since Foo extends FooBase, Foo gets the 
+static method bar() from FooBase in its scope and since Foo also says it 
+implements Bar interface, it needs to have an instance method bar() with 
+the same signature. This causes a conflict. A class cannot have two methods 
+with the same signature in its scope where one is static and one is instance.
+ Therefore, class Foo cannot be a subclass of FooBase and implement Bar at the same time.
+
+Making the bar method in Bar interface a default method will not help either. 
+ Because even though class Foo will not need have a definition of the bar method 
+ in Foo class itself, it will inherit that method from the Bar interface and the same conflict will occur.
+ 
+ ------------------------------------------------------------------
+ public class DatabaseWrapper
+{
+  static String url = "jdbc://derby://localhost:1527//mydb";
+  static DatabaseWrapper getDatabase()
+  {
+     System.out.println("Getting DB");
+     return null;
+  }
+  public static void main(String[ ] args)
+  {
+    System.out.println( getDatabase().url );
+  }
+}
+What it is trying to say is that even if the reference resolves to null at runtime, it doesn't 
+matter because the JVM doesn't need the object reference to access static members anyway. 
+The compiler replaces getDatabase().url with DatabaseWrapper.url!
+
+so it will print Getting DB and jdbc://derby://localhost:1527//mydb without throwing an exception.
+and wont throw nullpointer before jdbc is printed
+
