@@ -550,3 +550,5 @@ The compiler replaces getDatabase().url with DatabaseWrapper.url!
 so it will print Getting DB and jdbc://derby://localhost:1527//mydb without throwing an exception.
 and wont throw nullpointer before jdbc is printed
 
+commit teste
+
